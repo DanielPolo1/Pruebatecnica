@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Pruebatecnica.Model.Entities.HabitacionesAlojamiento>
+
+@{
+    ViewData["Title"] = "Habitaciones / Alojamiento";
+}
+
+<br />
+<hr>
+<section class="content">
+    <p>
+        <a onclick="mostrarModalS('@Url.Action("CrearHA","HabitacionesAlojamiento","null",Context.Request.Scheme)','Registrar Habitacion / alojamiento')" class="btn btn-success"> Registrar HA</a>
+    </p>
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroHabitacionAlojamiento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Capacidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TarifaOrdinario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TarifaEspecial)
+                </th>              
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroHabitacionAlojamiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TarifaOrdinario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TarifaEspecial)
+                    </td>                
+                    <td>
+                        @if (item.Estado == true)
+                        {
+                            <form asp-action="EditarEstado" asp-route-id="@item.HabitacionesAlojamientoId">
+                                <button type="submit"><i class="fas fa-toggle-on"></i></button>
+                            </form>
+                        }
+                        else if (item.Estado == false)
+                        {
+                            <form asp-action="EditarEstado" asp-route-id="@item.HabitacionesAlojamientoId">
+                                <button type="submit"><i class="fas fa-toggle-off"></i></button>
+                            </form>
+                        }
+                    </td>
+                    <td>
+                        <a onclick="mostrarModalS('@Url.Action("EditarHA","HabitacionesAlojamiento", new {id = item.HabitacionesAlojamientoId}, Context.Request.Scheme)', 'Editar Habitaciones / Alojamiento')" class="btn btn-dark"><i class="fas fa-pencil-alt"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+@section Scripts{
+
+    <script src="~/js/tabla.js"></script>
+    <script src="~/js/modals.js"></script>
+    <script>
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("Registrar")) { <text>
+        alertify.success('Registrado correctamente.');
+                 </text>
+        }
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("Error")) { <text>
+        alertify.alert('Error', '@TempData["Mensaje"]');
+                 </text>
+        }
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("EditarEstado")) { <text>
+        alertify.success('Estado cambiado correctamente.');
+                 </text>
+        }
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("Eliminar")) { <text>
+        alertify.alert('Eliminar cliente', '@TempData["Mensaje"]', function () { alertify.error('Cliente eliminado'); });
+                 </text>
+        }
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("Editar")) { <text>
+        alertify.alert('Editar cliente', '@TempData["Mensaje"]', function () { alertify.success('Cliente editado'); });
+                 </text>
+        }
+    </script>
+}

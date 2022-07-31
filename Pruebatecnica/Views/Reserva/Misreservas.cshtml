@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Pruebatecnica.Model.Entities.Reserva>
+
+
+@{
+    ViewData["Title"] = "Registrar reserva";
+    Layout = "_Landing";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fondo XYZ | Inicio</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/adminlte/dist/css/adminlte.min.css">
+    <link href="~/css/login.css" rel="stylesheet" />
+    <link href="~/lib/AlertifyJS/css/alertify.css" rel="stylesheet" />
+    <link href="~/lib/AlertifyJS/css/themes/default.css" rel="stylesheet" />
+    <link href="~/lib/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" />
+    <link href="~/lib/jquery-ui-1.13.1/jquery-ui.css" rel="stylesheet" />
+</head>
+<body> 
+    <section class="content">
+        <table class="table" id="tabla">
+            <thead>
+                <tr>
+                    <th>
+                        Numero de habitacion / alojamiento
+                    </th>
+                    <th>
+                        Capacidad
+                    </th>
+                    <th>
+                        Tarifa dia ordinario
+                    </th>
+                    <th>
+                        Tarifa dia especial
+                    </th>
+                    <th>
+                        Fecha llegada
+                    </th>
+                    <th>
+                        fecha salida
+                    </th>
+                    <th>
+                        Personas
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HabitacionesAlojamiento.NumeroHabitacionAlojamiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HabitacionesAlojamiento.Capacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HabitacionesAlojamiento.TarifaOrdinario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HabitacionesAlojamiento.TarifaEspecial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaLlegada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaSalida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Personas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>               
+                </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    <script src="~/js/tabla.js"></script>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/adminlte/dist/js/adminlte.min.js"></script>
+    <script src="~/lib/AlertifyJS/alertify.js"></script>
+    <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-timepicker/jquery.timepicker.js"></script>
+    <script src="~/lib/jquery-ui-1.13.1/jquery-ui.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>
+
+
+

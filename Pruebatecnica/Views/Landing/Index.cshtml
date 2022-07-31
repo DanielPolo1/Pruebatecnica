@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Pruebatecnica.Model.Entities.SedesRecreativasApartamento>
+
+@{
+    ViewData["Title"] = "Página principal";
+    Layout = "_Landing";
+}
+
+<!-- Team-->
+<section class="content">
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>
+                 
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ubicacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.RutaImagen != null)
+                        {
+                            <img src="@("~/imagenes/" + item.RutaImagen)" asp-append-version="true" class="img-circle w-25 h-10" />
+                            //<a onclick="mostrarModalG('@Url.Action("mostrarSede", "SedesRecreativasApartamento", new { rutaImagen = item.RutaImagen }, Context.Request.Scheme)', 'Imagen')" class="btn btn-secondary"><i class="fas fa-image"></i></a>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ubicacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        <a asp-action="CrearReserva" asp-controller="Reserva" class="btn btn-success"> Seleccionar</a>
+</td>
+
+</tr>
+            }
+        </tbody>
+    </table>
+
+</section>
+@section Scripts{
+    <script src="~/js/tabla.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#inputBuscar").on("keyup", function () {
+                var valor = $(this).val().toLowerCase();
+                $("#busqueda *").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(valor) > -1)
+                });
+            });
+        });
+    </script>
+}

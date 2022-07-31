@@ -1,0 +1,52 @@
+﻿@model Pruebatecnica.ViewModels.HabitacionesAlojamiento1.HAViewModel
+
+
+@{
+    ViewData["Title"] = "Registrar Habitacion / alojamiento";
+    Layout = null;
+}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <form asp-action="CrearHA" method="post">
+                    <div class="form-group">
+                        <label asp-for="Capacidad" class="control-label"></label>
+                        <input asp-for="Capacidad" id="datepicker" class="datepicker form-control">
+                        <span asp-validation-for="Capacidad" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NumeroHabitacionAlojamiento" class="control-label"></label>
+                        <input asp-for="NumeroHabitacionAlojamiento" id="datepicker" class="datepicker form-control">
+                        <span asp-validation-for="NumeroHabitacionAlojamiento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TarifaOrdinario" class="control-label"></label>
+                        <input asp-for="TarifaOrdinario" class="form-control">
+                        <span asp-validation-for="TarifaOrdinario" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TarifaEspecial" class="control-label"></label>
+                        <input asp-for="TarifaEspecial" class="form-control">
+                        <span asp-validation-for="TarifaEspecial" class="text-danger"></span>
+                    </div>                 
+                    <div class="row justify-content-center">
+                        <!-- /.col -->
+                        <div class="col-7">
+                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>   
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }   
+
+
+
+

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Pruebatecnica.Model.Entities.SedesRecreativasApartamento>
+
+@{
+    ViewData["Title"] = "Sede";
+}
+<br />
+<hr>
+<section class="content">
+    <p>
+        <a onclick="mostrarModalS('@Url.Action("CrearSede","Sedes", "null", Context.Request.Scheme)', 'Crear Sede')" class="btn btn-success"> Registrar Sede</a>
+    </p>
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ubicacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    Imagen
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Acciones
+                </th>           
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ubicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @if (item.RutaImagen != null)
+                    {
+                     
+                        <a onclick="mostrarModalG('@Url.Action("mostrarSede", "SedesRecreativasApartamento", new { rutaImagen = item.RutaImagen }, Context.Request.Scheme)', 'Imagen')" class="btn btn-secondary"><i class="fas fa-image"></i></a>
+                    }
+                </td>
+                <td>
+                    @if (item.Estado == true)
+                    {
+                        <form asp-action="EditarEstado" asp-route-id="@item.SedesId">
+                            <button type="submit"><i class="fas fa-toggle-on"></i></button>
+                        </form>
+                    }
+                    else if (item.Estado == false)
+                    {
+                        <form asp-action="EditarEstado" asp-route-id="@item.SedesId">
+                            <button type="submit"><i class="fas fa-toggle-off"></i></button>
+                        </form>
+                    }
+                </td>
+                <td>
+                    <form asp-action="EliminarSede" asp-route-id="@item.SedesId">
+                        <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    </form>
+                    <a onclick="mostrarModalS('@Url.Action("EditarSede","Sedes", new {id = item.SedesId}, Context.Request.Scheme)', 'Editar Sede')" class="btn btn-dark"><i class="fas fa-pencil-alt"></i></a>
+                </td>                        
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</section>
+
+@section Scripts{
+
+    <script src="~/js/tabla.js"></script>
+    <script src="~/js/modals.js"></script>
+    <script>
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("RegistrarSede")) { <text>
+                  alertify.alert('Guardar Sede', '@TempData["Mensaje"]', function () { alertify.success('Sede guardado'); });
+                 </text>
+        }
+        @if (TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("Error"))
+    {<text>
+            alertify.alert('Error', '@TempData["Mensaje"]');
+    </text>
+}
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("EditarSede")) { <text>
+        alertify.alert('Editar Sede', '@TempData["Mensaje"]', function () { alertify.success('Sede editado'); });
+                 </text>
+        }
+        @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("EliminarSede")) { <text>
+        alertify.alert('Eliminar Sede', '@TempData["Mensaje"]', function () { alertify.error('Sede eliminado'); });
+                 </text>
+        }
+         @if(TempData["Mensaje"] != null && TempData["Accion"].ToString().Equals("EditarEstado")) { <text>
+        alertify.success('Estado cambiado correctamente.');
+                 </text>
+        }
+    </script>
+    <script type="text/javascript">
+        function DeleteConfirm() {
+            if (confirm("¿Quieres Eliminar la Sede?"))
+                return true;
+            else
+                return false;
+        }
+    </script>
+}

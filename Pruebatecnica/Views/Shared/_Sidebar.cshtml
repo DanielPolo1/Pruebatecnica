@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Http
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <div class="container" id="menu">
+        <a asp-action="Admin" asp-controller="Dashboard" class="brand-link">
+            <p>
+                Fondo XYZ
+            </p>
+        </a>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="menu-opciones">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @if (this.User.IsInRole("Administrador"))
+                {
+                    <li class="nav-item">
+                        <a asp-action="index" asp-controller="Usuarios" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <p>
+                                Usuarios
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Clientes" class="nav-link">
+                            <i class="fas fa-user-circle"></i>
+                            <p>
+                                Clientes
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-action="index" asp-controller="Sedes" class="nav-link">
+                            <i class="fas fa-cut"></i>
+                            <p>
+                                Sedes
+                            </p>
+                        </a>
+                    </li>                  
+                    <li class="nav-item">
+                        <a asp-action="index" asp-controller="HabitacionesAlojamiento" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <p>
+                                Habitaciones / Alojamiento
+                            </p>
+                        </a>
+                    </li>
+                }
+                @if (this.User.IsInRole("Empleado"))
+                {
+                    <li class="nav-item">
+                        <a asp-action="AgendaCitasEmpleado" asp-controller="Empleados" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <p>
+                                Agenda empleado
+                            </p>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

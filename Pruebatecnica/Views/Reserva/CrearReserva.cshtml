@@ -1,0 +1,92 @@
+﻿@model Pruebatecnica.ViewModels.Reserva.ReservaViewModel
+
+
+@{
+    ViewData["Title"] = "Registrar reserva";
+    Layout = "_Landing";
+}
+<br />
+<hr>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="CrearReserva" asp-controller="Reserva" method="post">
+                <div class="form-group">
+                    <label asp-for="FechaLlegada" class="control-label"></label>
+                    <input asp-for="FechaLlegada" id="datepicker" class="datepicker form-control" type="date">
+                    <span asp-validation-for="FechaLlegada" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FechaSalida" class="control-label"></label>
+                    <input asp-for="FechaSalida" id="datepicker" class="datepicker form-control" type="date">
+                    <span asp-validation-for="FechaSalida" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Personas" class="control-label"></label>
+                    <input asp-for="Personas" class="form-control" placeholder="Numero">
+                    <span asp-validation-for="Personas" class="text-danger"></span>
+                </div>
+                <!---El total es para que se auto incremente, toca seguir codificando y probando para que de-->
+                <div class="form-group">
+                    <label asp-for="Total" class="control-label"></label>
+                    <input asp-for="Total" class="form-control" readonly>
+                    <span asp-validation-for="Total" class="text-danger"></span>
+                </div>
+                <div class="row justify-content-center">               
+                    <div class="col-7">
+                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>
+                    Numero de habitacion / alojamiento
+                </th>
+                <th>
+                    Capacidad
+                </th>
+                <th>
+                    Tarifa dia ordinario
+                </th>
+                <th>
+                    Tarifa dia especial
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.habitacionesAlojamientos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroHabitacionAlojamiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TarifaOrdinario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TarifaEspecial)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
